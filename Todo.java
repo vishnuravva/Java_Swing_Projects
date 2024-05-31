@@ -72,16 +72,102 @@ add(heading);
         });
     }
     private void display(){
-        int size = 170;
+        int label_y_size = 170;
         for (int i = 0; i < tasks.size(); i++) {
-            JLabel task = new JLabel(tasks.get(i));
-            task.setBounds(20,size,660,30);
+            JLabel task = new JLabel(" -> " + tasks.get(i));
+            task.setBounds(20,label_y_size,660,30);
             task.setFont(font);
             add(task);
-            size+=40;
+            label_y_size+=40;
         }
+        revalidate();
+        repaint();
     }
     public static void main(String[] args) {
 new Todo();
     }
 }
+
+
+
+/* ----------------- Version 2 of Todo App ---------- */
+
+//package Swing_Projects;
+//
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.util.ArrayList;
+//
+//public class Todo extends JFrame {
+//    private JTextField taskField;
+//    private JLabel heading;
+//    private Font font = new Font("Roboto", Font.PLAIN, 20);
+//    private JButton addTaskBtn;
+//    private JPanel taskPanel;
+//    private ArrayList<String> tasks;
+//
+//    public Todo() {
+//        tasks = new ArrayList<>();
+//        initializeComponents();
+//        registerEvents();
+//        setVisible(true);
+//    }
+//
+//    private void initializeComponents() {
+//        setTitle("Todo App");
+//        setLayout(new BorderLayout());
+//        setSize(700, 700);
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+//
+//        heading = new JLabel("Todo");
+//        heading.setFont(font);
+//        heading.setHorizontalAlignment(JLabel.CENTER);
+//
+//        taskField = new JTextField();
+//        taskField.setFont(font);
+//
+//        addTaskBtn = new JButton("+");
+//        addTaskBtn.setFont(font);
+//
+//        JPanel inputPanel = new JPanel(new BorderLayout());
+//        inputPanel.add(taskField, BorderLayout.CENTER);
+//        inputPanel.add(addTaskBtn, BorderLayout.EAST);
+//
+//        taskPanel = new JPanel();
+//        taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));
+//
+//        add(heading, BorderLayout.NORTH);
+//        add(inputPanel, BorderLayout.CENTER);
+//        add(taskPanel, BorderLayout.SOUTH);
+//    }
+//
+//    private void registerEvents() {
+//        addTaskBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                if (!taskField.getText().isEmpty()) {
+//                    String taskText = taskField.getText();
+//                    tasks.add(taskText);
+//                    addTaskLabel(taskText);
+//                    taskField.setText("");
+//                    System.out.println("tasks: " + tasks);
+//                }
+//            }
+//        });
+//    }
+//
+//    private void addTaskLabel(String taskText) {
+//        JLabel taskLabel = new JLabel(taskText);
+//        taskLabel.setFont(font);
+//        taskPanel.add(taskLabel);
+//        taskPanel.revalidate();
+//        taskPanel.repaint();
+//    }
+//
+//    public static void main(String[] args) {
+//        new Todo();
+//    }
+//}
