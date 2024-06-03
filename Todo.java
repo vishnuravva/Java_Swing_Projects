@@ -15,6 +15,7 @@ public class Todo extends JFrame{
     private JButton addTaskBtn;
     private JTextArea alltasks;
     ArrayList<String> tasks;
+    private JPanel taskPanel;
 
     Todo(){
         tasks = new ArrayList<String>();
@@ -46,12 +47,18 @@ public class Todo extends JFrame{
 //        alltasks.setBounds(20,170,660,450);
 //        alltasks.setFont(font);
 
+        taskPanel = new JPanel();
+        taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));
+        taskPanel.setBounds(20, 150, 660, 500);
+        taskPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        ;
-add(heading);
+
+
+
+        add(heading);
         add(task_field);
         add(addTaskBtn);
-//        add(alltasks);
+        add(taskPanel);
         setLocationRelativeTo(null);
         setVisible(true);
 
@@ -72,19 +79,39 @@ add(heading);
         });
     }
     private void display(){
-        int label_y_size = 170;
+        taskPanel.removeAll();
+        int size = 170;
         for (int i = 0; i < tasks.size(); i++) {
-            JLabel task = new JLabel(" -> " + tasks.get(i));
-            task.setBounds(20,label_y_size,660,30);
+
+            JPanel taskItemPanel = new JPanel();
+            taskItemPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+            JLabel task = new JLabel(tasks.get(i));
+            task.setBounds(20,size,580,30);
             task.setFont(font);
-            add(task);
-            label_y_size+=40;
+
+            JButton delBtn = new JButton("Del");
+            delBtn.setBounds(590,size,75,30);
+            delBtn.setFont(font);
+            final int index = i;
+            delBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    tasks.remove(index);
+                    display(); // Refr
+
+                }
+            });
+            taskItemPanel.add(task);
+            taskItemPanel.add(delBtn);
+            taskPanel.add(taskItemPanel);
+            size+=40;
         }
-        revalidate();
-        repaint();
+        taskPanel.revalidate();
+        taskPanel.repaint();
     }
     public static void main(String[] args) {
-new Todo();
+        new Todo();
     }
 }
 
